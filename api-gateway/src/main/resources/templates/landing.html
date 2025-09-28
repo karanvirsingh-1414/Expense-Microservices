@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Welcome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #18181b 0%, #23232b 100%);
+            color: #f3f4f6;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+        }
+        .navbar {
+            background: #18181b;
+            box-shadow: 0 2px 8px #23232b80;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.7rem;
+            color: #00fff7;
+            letter-spacing: 2px;
+            text-shadow: 0 0 4px #00fff7, 0 0 1px #fff;
+        }
+        .nav-link, .btn-neon {
+            color: #fff;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+        .btn-neon {
+            background: #00fff7;
+            color: #18181b;
+            border: none;
+            box-shadow: 0 0 6px #00fff7a0;
+            transition: 0.2s;
+        }
+        .btn-neon:hover {
+            background: #23232b;
+            color: #00fff7;
+            border: 1px solid #00fff7;
+            box-shadow: 0 0 12px #00fff7a0;
+        }
+        .btn-outline-light {
+            border: 1px solid #00fff7;
+            color: #00fff7;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .btn-outline-light:hover {
+            background: #00fff7;
+            color: #18181b;
+        }
+        .carousel-inner img {
+            height: 400px;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 0 12px #23232b80;
+        }
+        .section-title {
+            color: #00fff7;
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            color: #00fff7;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 2px #00fff7);
+        }
+        .card {
+            background: #20202a;
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 0 8px #23232b80;
+            color: #f3f4f6;
+        }
+        .card-title {
+            color: #00fff7;
+            text-shadow: 0 0 2px #00fff7;
+        }
+        .about-section {
+            background: #23232b;
+            border-radius: 1rem;
+            box-shadow: 0 0 8px #23232b80;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .testimonial {
+            background: #20202a;
+            border-radius: 1rem;
+            box-shadow: 0 0 8px #23232b80;
+            padding: 2rem;
+            color: #f3f4f6;
+        }
+        .footer {
+            background: #18181b;
+            color: #00fff7;
+            text-align: center;
+            padding: 1.5rem 0 0.5rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #23232b;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ExpenseTracker</a>
+        <div class="d-flex ms-auto">
+            <a href="http://localhost:8082/register" class="btn btn-neon me-2">Register</a>
+            <a href="http://localhost:8082/login" class="btn btn-neon">Login</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="container text-center py-5">
+    <h1 class="display-4 fw-bold mb-3" style="color:#00fff7;text-shadow:0 0 10px #00fff7;">Welcome to ExpenseTracker</h1>
+    <p class="lead mb-4">Your all-in-one solution for tracking, analyzing, and mastering your finances with style.</p>
+    <a href="http://localhost:8082/register" class="btn btn-neon btn-lg me-2">Get Started</a>
+    <a href="http://localhost:8082/login" class="btn btn-outline-light btn-lg">Login</a>
+</section>
+
+<!-- Carousel Section -->
+<div id="mainCarousel" class="carousel slide container mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" class="d-block w-100" alt="Modern Finance" style="background:#111;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Track Your Expenses Effortlessly</h5>
+                <p>Stay on top of your finances with our modern dashboard.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=900&q=80" class="d-block w-100" alt="Data Visualization" style="background:#111;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Visualize Your Spending</h5>
+                <p>Beautiful charts and category breakdowns for smarter decisions.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" class="d-block w-100" alt="Set Budgets" style="background:#111;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Set Budgets & Goals</h5>
+                <p>Plan ahead and achieve your financial targets easily.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=900&q=80" class="d-block w-100" alt="Secure & Private" style="background:#111;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Secure & Private</h5>
+                <p>Your data is safe with us. Privacy is our top priority.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Features Section -->
+<h2 class="section-title">Why Choose ExpenseTracker?</h2>
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                <div class="feature-icon mb-2"><i class="bi bi-graph-up-arrow"></i></div>
+                <h5 class="card-title">Real-Time Tracking</h5>
+                <p class="card-text">Monitor your expenses as they happen and never lose track of your money again.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                <div class="feature-icon mb-2"><i class="bi bi-bar-chart-line"></i></div>
+                <h5 class="card-title">Smart Analytics</h5>
+                <p class="card-text">Get insights and analytics to help you make better financial decisions.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                <div class="feature-icon mb-2"><i class="bi bi-wallet-fill"></i></div>
+                <h5 class="card-title">Easy Budgeting</h5>
+                <p class="card-text">Set budgets for categories and get alerts when you are close to your limits.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                <div class="feature-icon mb-2"><i class="bi bi-shield-check"></i></div>
+                <h5 class="card-title">100% Secure</h5>
+                <p class="card-text">Your data is encrypted and protected with industry-leading security.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="container about-section mb-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" class="img-fluid rounded shadow-lg" alt="About ExpenseTracker" style="background:#111;">
+        </div>
+        <div class="col-md-6">
+            <h3 style="color:#00fff7;">About ExpenseTracker</h3>
+            <p>ExpenseTracker is designed to make your financial life easier. With a modern UI, powerful analytics, and robust security, you can focus on your goals while we handle the numbers. Join thousands of users who trust us to manage their daily expenses and savings.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<h2 class="section-title">What Our Users Say</h2>
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="testimonial border-0 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80" class="rounded-circle mb-3" width="60" height="60" alt="Priya S.">
+                <p>"ExpenseTracker changed the way I manage my money. The analytics are top-notch!"</p>
+                <span>- Priya S.</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial border-0 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=200&q=80" class="rounded-circle mb-3" width="60" height="60" alt="Rahul K.">
+                <p>"The UI is so modern and easy to use. I love the neon theme!"</p>
+                <span>- Rahul K.</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial border-0 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=200&q=80" class="rounded-circle mb-3" width="60" height="60" alt="Ayesha M.">
+                <p>"I finally feel in control of my spending. Highly recommended!"</p>
+                <span>- Ayesha M.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<section class="container text-center py-5">
+    <h2 class="mb-4" style="color:#00fff7;">Ready to take control of your finances?</h2>
+    <a href="http://localhost:8082/register" class="btn btn-neon btn-lg me-2">Sign Up Free</a>
+    <a href="http://localhost:8082/login" class="btn btn-outline-light btn-lg">Login</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 ExpenseTracker. All rights reserved.</p>
+        <p>Made with <span style="color:#00fff7;">&#10084;</span> by Team ExpenseTracker</p>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

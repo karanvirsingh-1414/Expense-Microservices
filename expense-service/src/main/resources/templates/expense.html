@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Expense</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div style="position:fixed;top:32px;right:48px;z-index:1001;display:flex;gap:18px;">
+        <a href="http://localhost:8080/" class="home-btn" style="background:#00fff7;color:#18181b;padding:8px 22px;border-radius:8px;text-decoration:none;font-weight:600;box-shadow:0 0 8px #00fff7a0;transition:0.2s;font-size:1rem;">Home</a>
+        <a href="http://localhost:8082/login" class="logout-btn" style="background:#23232b;color:#00fff7;padding:8px 22px;border-radius:8px;text-decoration:none;font-weight:600;border:1.5px solid #00fff7;box-shadow:0 0 8px #00fff7a0;transition:0.2s;font-size:1rem;">Logout</a>
+    </div>
+    <div class="container">
+        <h2>Add Expense</h2>
+        <form action="/expense" method="post">
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="number" name="amount" placeholder="Amount" required>
+            <input type="text" name="category" placeholder="Category" required>
+            <input type="text" name="description" placeholder="Description" required>
+            <input type="date" name="date" required>
+            <button type="submit">Add Expense</button>
+        </form>
+        <div class="salary-info" style="margin-top:20px;">
+            <span>Remaining: <b th:text="${remaining}"></b></span>
+        </div>
+        <h3>Categories</h3>
+        <div class="categories">
+            <a th:each="cat : ${categories}" class="category-box" th:text="${cat}" th:href="@{'/category/' + ${cat}}"></a>
+        </div>
+    </div>
+</body>
+</html>

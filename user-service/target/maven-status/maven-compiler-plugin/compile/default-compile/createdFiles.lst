@@ -1,0 +1,7 @@
+com/expensetracker/userservice/controller/UserMicroserviceController.class
+com/expensetracker/userservice/service/UserService.class
+com/expensetracker/userservice/UserServiceApplication.class
+com/expensetracker/userservice/config/SecurityConfig.class
+com/expensetracker/userservice/model/User.class
+com/expensetracker/userservice/repository/UserRepository.class
+com/expensetracker/userservice/controller/UserRestController.class

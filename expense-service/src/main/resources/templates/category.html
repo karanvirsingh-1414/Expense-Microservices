@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${category}">Category Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="${category}"></h2>
+        <div class="expense-cards">
+            <div th:each="exp : ${expenses}" class="expense-card">
+                <div><b th:text="${exp.description}"></b></div>
+                <div>Date: <span th:text="${exp.date}"></span></div>
+                <div>Amount: <span th:text="${exp.amount}"></span></div>
+                <a th:href="@{'/expense/edit/' + ${exp.id}}" class="edit-btn">Edit</a>
+                <a th:href="@{'/expense/delete/' + ${exp.id}}" class="delete-btn" onclick="return confirm('Delete this expense?');">Delete</a>
+            </div>
+        </div>
+        <div class="salary-info" style="margin-top:20px;">
+            <span>Total Spent: <b th:text="${totalSpent}"></b></span>
+        </div>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>
