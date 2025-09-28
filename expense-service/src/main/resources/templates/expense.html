@@ -3,29 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Expense</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body.bg-dark-image {
+            min-height: 100vh;
+            background: linear-gradient(rgba(20,20,25,0.85), rgba(20,20,25,0.92)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #f3f4f6;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 30, 40, 0.55);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+            border-radius: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 2.5rem 2rem;
+            margin: 2rem auto;
+            max-width: 480px;
+            color: #f3f4f6;
+        }
+        .glass-card h2, .glass-card label {
+            color: #00fff7;
+            text-shadow: 0 0 4px #00fff733;
+        }
+        .glass-card input, .glass-card select {
+            background: rgba(40,60,90,0.7); /* bluish black */
+            color: #f3f4f6; /* light text */
+            border: 1px solid #00fff7;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
+        }
+        .glass-card input::placeholder, .glass-card select::placeholder {
+            color: #b2eaff; /* lighter bluish placeholder */
+            opacity: 1;
+        }
+        .glass-card input:focus, .glass-card select:focus {
+            background: #fff;
+            color: #22334a; /* bluish black text */
+            border-color: #00fff7;
+            box-shadow: 0 0 8px #00fff7a0;
+        }
+        .glass-card input:focus::placeholder, .glass-card select:focus::placeholder {
+            color: #b2eaff;
+            opacity: 0.7;
+        }
+        .btn-neon {
+            background: #00fff7;
+            color: #18181b;
+            border: none;
+            box-shadow: 0 0 6px #00fff7a0;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        .btn-neon:hover {
+            background: #23232b;
+            color: #00fff7;
+            border: 1px solid #00fff7;
+            box-shadow: 0 0 12px #00fff7a0;
+        }
+        .category-box {
+            display: inline-block;
+            background: rgba(0,255,247,0.12);
+            color: #00fff7;
+            border: 1px solid #00fff7;
+            border-radius: 0.7rem;
+            padding: 0.4rem 1.1rem;
+            margin: 0.3rem 0.5rem 0.3rem 0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .category-box:hover {
+            background: #00fff7;
+            color: #18181b;
+        }
+        .top-nav-btns {
+            position:fixed;
+            top:32px;
+            right:48px;
+            z-index:1001;
+            display:flex;
+            gap:18px;
+        }
+        .nav-btn {
+            background: #23232b;
+            color: #00fff7;
+            border: 2px solid #00fff7;
+            border-radius: 0.8rem;
+            padding: 8px 26px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.08rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px #00fff7a0;
+            transition: 0.18s;
+            outline: none;
+        }
+        .nav-btn.home {
+            background: #00fff7;
+            color: #18181b;
+            border: 2px solid #00fff7;
+        }
+        .nav-btn:hover {
+            background: #00fff7;
+            color: #18181b;
+            border: 2px solid #00fff7;
+            box-shadow: 0 0 18px #00fff7cc;
+        }
+    </style>
 </head>
-<body>
-    <div style="position:fixed;top:32px;right:48px;z-index:1001;display:flex;gap:18px;">
-        <a href="http://localhost:8080/" class="home-btn" style="background:#00fff7;color:#18181b;padding:8px 22px;border-radius:8px;text-decoration:none;font-weight:600;box-shadow:0 0 8px #00fff7a0;transition:0.2s;font-size:1rem;">Home</a>
-        <a href="http://localhost:8082/login" class="logout-btn" style="background:#23232b;color:#00fff7;padding:8px 22px;border-radius:8px;text-decoration:none;font-weight:600;border:1.5px solid #00fff7;box-shadow:0 0 8px #00fff7a0;transition:0.2s;font-size:1rem;">Logout</a>
+<body class="bg-dark-image">
+    <div class="top-nav-btns">
+        <a href="http://localhost:8080/" class="nav-btn home">Home</a>
+        <a href="http://localhost:8082/login" class="nav-btn">Logout</a>
     </div>
-    <div class="container">
-        <h2>Add Expense</h2>
-        <form action="/expense" method="post">
-            <input type="text" name="title" placeholder="Title" required>
-            <input type="number" name="amount" placeholder="Amount" required>
-            <input type="text" name="category" placeholder="Category" required>
-            <input type="text" name="description" placeholder="Description" required>
-            <input type="date" name="date" required>
-            <button type="submit">Add Expense</button>
-        </form>
-        <div class="salary-info" style="margin-top:20px;">
-            <span>Remaining: <b th:text="${remaining}"></b></span>
-        </div>
-        <h3>Categories</h3>
-        <div class="categories">
-            <a th:each="cat : ${categories}" class="category-box" th:text="${cat}" th:href="@{'/category/' + ${cat}}"></a>
+    <div class="container d-flex align-items-center justify-content-center" style="min-height:100vh;">
+        <div class="glass-card w-100">
+            <h2 class="mb-4 text-center">Add Expense</h2>
+            <form action="/expense" method="post">
+                <input type="text" name="title" class="form-control" placeholder="Title" required>
+                <input type="number" name="amount" class="form-control" placeholder="Amount" required>
+                <input type="text" name="category" class="form-control" placeholder="Category" required>
+                <input type="text" name="description" class="form-control" placeholder="Description" required>
+                <input type="date" name="date" class="form-control" required>
+                <button type="submit" class="btn btn-neon w-100">Add Expense</button>
+            </form>
+            <div class="salary-info mt-4">
+                <span>Remaining: <b th:text="${remaining}"></b></span>
+            </div>
+            <h3 class="mt-4">Categories</h3>
+            <div class="categories">
+                <a th:each="cat : ${categories}" class="category-box" th:text="${cat}" th:href="@{'/category/' + ${cat}}"></a>
+            </div>
         </div>
     </div>
 </body>
