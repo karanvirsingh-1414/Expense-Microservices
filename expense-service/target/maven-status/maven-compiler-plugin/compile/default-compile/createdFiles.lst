@@ -1,5 +1,6 @@
 com/expensetracker/expenseservice/controller/ExpenseController.class
 com/expensetracker/expenseservice/service/ExpenseService.class
+com/expensetracker/expenseservice/controller/ExpenseController$1.class
 com/expensetracker/expenseservice/repository/ExpenseRepository.class
 com/expensetracker/expenseservice/controller/GlobalErrorController.class
 com/expensetracker/expenseservice/config/SecurityConfig.class

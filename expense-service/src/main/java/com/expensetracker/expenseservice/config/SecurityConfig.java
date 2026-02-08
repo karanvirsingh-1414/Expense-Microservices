@@ -13,18 +13,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers(
-                    "/dashboard", "/expense", "/addExpense", "/category/**", "/updateExpense/**", "/deleteExpense/**", "/css/**", "/js/**", "/static/**",
-                    "/api/expense", "/api/expenses/**",
-                    "/salary" // Allow access to salary page
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin().disable()
-            .httpBasic().disable()
-            .logout().permitAll();
+                .csrf().disable()
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(
+                                "/dashboard", "/expense", "/expense/**", "/category/**", "/css/**", "/js/**",
+                                "/static/**",
+                                "/api/expense", "/api/expenses/**",
+                                "/salary", "/login", "/logout")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .formLogin().disable()
+                .httpBasic().disable()
+                .logout().permitAll();
         return http.build();
     }
 }

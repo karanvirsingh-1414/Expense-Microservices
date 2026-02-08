@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Add Expense</title>
@@ -7,49 +8,65 @@
     <style>
         body.bg-dark-image {
             min-height: 100vh;
-            background: linear-gradient(rgba(20,20,25,0.85), rgba(20,20,25,0.92)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background: linear-gradient(rgba(20, 20, 25, 0.85), rgba(20, 20, 25, 0.92)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
             background-size: cover;
             color: #f3f4f6;
             font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
         }
+
         .glass-card {
             background: rgba(30, 30, 40, 0.55);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
             backdrop-filter: blur(10px) saturate(120%);
             -webkit-backdrop-filter: blur(10px) saturate(120%);
             border-radius: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 2.5rem 2rem;
             margin: 2rem auto;
             max-width: 480px;
             color: #f3f4f6;
         }
-        .glass-card h2, .glass-card label {
+
+        .glass-card h2,
+        .glass-card label {
             color: #00fff7;
             text-shadow: 0 0 4px #00fff733;
         }
-        .glass-card input, .glass-card select {
-            background: rgba(40,60,90,0.7); /* bluish black */
-            color: #f3f4f6; /* light text */
+
+        .glass-card input,
+        .glass-card select {
+            background: rgba(40, 60, 90, 0.7);
+            /* bluish black */
+            color: #f3f4f6;
+            /* light text */
             border: 1px solid #00fff7;
             border-radius: 0.5rem;
             margin-bottom: 1rem;
             transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
-        .glass-card input::placeholder, .glass-card select::placeholder {
-            color: #b2eaff; /* lighter bluish placeholder */
+
+        .glass-card input::placeholder,
+        .glass-card select::placeholder {
+            color: #b2eaff;
+            /* lighter bluish placeholder */
             opacity: 1;
         }
-        .glass-card input:focus, .glass-card select:focus {
+
+        .glass-card input:focus,
+        .glass-card select:focus {
             background: #fff;
-            color: #22334a; /* bluish black text */
+            color: #22334a;
+            /* bluish black text */
             border-color: #00fff7;
             box-shadow: 0 0 8px #00fff7a0;
         }
-        .glass-card input:focus::placeholder, .glass-card select:focus::placeholder {
+
+        .glass-card input:focus::placeholder,
+        .glass-card select:focus::placeholder {
             color: #b2eaff;
             opacity: 0.7;
         }
+
         .btn-neon {
             background: #00fff7;
             color: #18181b;
@@ -58,15 +75,17 @@
             transition: 0.2s;
             font-weight: 600;
         }
+
         .btn-neon:hover {
             background: #23232b;
             color: #00fff7;
             border: 1px solid #00fff7;
             box-shadow: 0 0 12px #00fff7a0;
         }
+
         .category-box {
             display: inline-block;
-            background: rgba(0,255,247,0.12);
+            background: rgba(0, 255, 247, 0.12);
             color: #00fff7;
             border: 1px solid #00fff7;
             border-radius: 0.7rem;
@@ -76,18 +95,21 @@
             font-weight: 500;
             transition: 0.2s;
         }
+
         .category-box:hover {
             background: #00fff7;
             color: #18181b;
         }
+
         .top-nav-btns {
-            position:fixed;
-            top:32px;
-            right:48px;
-            z-index:1001;
-            display:flex;
-            gap:18px;
+            position: fixed;
+            top: 32px;
+            right: 48px;
+            z-index: 1001;
+            display: flex;
+            gap: 18px;
         }
+
         .nav-btn {
             background: #23232b;
             color: #00fff7;
@@ -102,11 +124,13 @@
             transition: 0.18s;
             outline: none;
         }
+
         .nav-btn.home {
             background: #00fff7;
             color: #18181b;
             border: 2px solid #00fff7;
         }
+
         .nav-btn:hover {
             background: #00fff7;
             color: #18181b;
@@ -115,6 +139,7 @@
         }
     </style>
 </head>
+
 <body class="bg-dark-image">
     <div class="top-nav-btns">
         <a href="http://localhost:8080/" class="nav-btn home">Home</a>
@@ -136,9 +161,11 @@
             </div>
             <h3 class="mt-4">Categories</h3>
             <div class="categories">
-                <a th:each="cat : ${categories}" class="category-box" th:text="${cat}" th:href="@{'/category/' + ${cat}}"></a>
+                <a th:each="cat : ${categories}" class="category-box" th:text="${cat}"
+                    th:href="@{'/category/' + ${cat}}"></a>
             </div>
         </div>
     </div>
 </body>
+
 </html>

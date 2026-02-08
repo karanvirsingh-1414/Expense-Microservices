@@ -1,0 +1,5 @@
+com/expensetracker/analyticsservice/client/ExpenseClient.class
+com/expensetracker/analyticsservice/AnalyticsServiceApplication$1.class
+com/expensetracker/analyticsservice/model/ExpenseDTO.class
+com/expensetracker/analyticsservice/controller/AnalyticsController.class
+com/expensetracker/analyticsservice/AnalyticsServiceApplication.class

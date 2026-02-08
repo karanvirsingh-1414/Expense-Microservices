@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
@@ -7,30 +8,35 @@
     <style>
         body.bg-dark-image {
             min-height: 100vh;
-            background: linear-gradient(rgba(20,20,25,0.88), rgba(20,20,25,0.95)), url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background: linear-gradient(rgba(20, 20, 25, 0.88), rgba(20, 20, 25, 0.95)), url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
             background-size: cover;
             color: #f3f4f6;
             font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
         }
+
         .glass-card {
             background: rgba(30, 30, 40, 0.55);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
             backdrop-filter: blur(10px) saturate(120%);
             -webkit-backdrop-filter: blur(10px) saturate(120%);
             border-radius: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 2.5rem 2rem;
             margin: 2rem auto;
             max-width: 480px;
+            /* This will be overridden by inline style */
             color: #f3f4f6;
         }
+
         .glass-card h2 {
             color: #00fff7;
             text-shadow: 0 0 4px #00fff733;
         }
+
         .salary-info {
             margin-top: 20px;
         }
+
         .add-expense-btn {
             display: inline-block;
             margin: 18px 0 18px 0;
@@ -43,14 +49,16 @@
             font-weight: 600;
             transition: 0.2s;
         }
+
         .add-expense-btn:hover {
             background: #23232b;
             color: #00fff7;
             border: 1px solid #00fff7;
         }
+
         .category-box {
             display: inline-block;
-            background: rgba(0,255,247,0.12);
+            background: rgba(0, 255, 247, 0.12);
             color: #00fff7;
             border: 1px solid #00fff7;
             border-radius: 0.7rem;
@@ -60,26 +68,51 @@
             font-weight: 500;
             transition: 0.2s;
         }
+
         .category-box:hover {
             background: #00fff7;
             color: #18181b;
         }
     </style>
 </head>
+
 <body class="bg-dark-image">
     <div class="container d-flex align-items-center justify-content-center" style="min-height:100vh;">
-        <div class="glass-card w-100">
+        <div class="glass-card w-100" style="max-width: 600px;">
             <h2 class="mb-4 text-center">Dashboard</h2>
             <div class="salary-info">
                 <span>Salary: <b th:text="${salary}"></b></span>
                 <span class="ms-4">Remaining: <b th:text="${remaining}"></b></span>
             </div>
             <a href="/expense" class="add-expense-btn">Add Expense</a>
+
+            <h3 class="mt-4">Budget Progress</h3>
+            <div class="progress-container mt-3">
+                <div th:each="prog : ${progressList}" class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-white fw-bold" th:text="${prog.name}"></span>
+                        <span class="text-white-50" style="font-size:0.9rem;">
+                            <span th:text="${prog.current}"></span> / <span th:text="${prog.limit}"></span>
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 10px; background-color: rgba(255,255,255,0.1);">
+                        <div class="progress-bar" role="progressbar" th:style="'width: ' + ${prog.percentage} + '%;'"
+                            th:classappend="${prog.color}" th:aria-valuenow="${prog.percentage}" aria-valuemin="0"
+                            aria-valuemax="100">
+                        </div>
+                    </div>
+                    <small th:if="${prog.isOverBudget}" class="text-danger fw-bold" style="font-size:0.8rem;">Over
+                        Budget!</small>
+                </div>
+            </div>
+
             <h3 class="mt-4">Categories</h3>
             <div class="categories">
-                <a th:each="cat : ${categories}" class="category-box" th:text="${cat}" th:href="@{'/category/' + ${cat}}"></a>
+                <a th:each="cat : ${categories}" class="category-box" th:text="${cat}"
+                    th:href="@{'/category/' + ${cat}}"></a>
             </div>
         </div>
     </div>
 </body>
+
 </html>

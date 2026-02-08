@@ -1,6 +1,6 @@
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/controller/UserMicroserviceController.java
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/UserServiceApplication.java
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/service/UserService.java
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/config/SecurityConfig.java
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/model/User.java
-/Users/karanvirsingh/Desktop/expense-microservices/user-service/src/main/java/com/expensetracker/userservice/repository/UserRepository.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/repository/UserRepository.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/model/User.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/UserServiceApplication.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/controller/UserMicroserviceController.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/config/SecurityConfig.java
+/Users/karanvirsingh/.gemini/antigravity/scratch/Expense-Microservices/user-service/src/main/java/com/expensetracker/userservice/service/UserService.java

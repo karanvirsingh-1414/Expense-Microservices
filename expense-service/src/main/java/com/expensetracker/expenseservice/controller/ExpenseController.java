@@ -18,41 +18,43 @@ public class ExpenseController {
 
     // --- SALARY FLOW: Commented out old logic for clean minimal implementation ---
     // @GetMapping("/salary")
-    // public String showSalaryForm(@RequestParam(value = "userId", required = false) Long userIdParam, HttpSession session, Model model) {
-    //     Long userId = (Long) session.getAttribute("userId");
-    //     if (userId == null && userIdParam != null) {
-    //         session.setAttribute("userId", userIdParam);
-    //         userId = userIdParam;
-    //     }
-    //     if (userId == null) return "redirect:http://localhost:8082/login";
-    //     double salary = expenseService.getSalary(userId);
-    //     if (salary > 0) {
-    //         model.addAttribute("hasSalary", true);
-    //         model.addAttribute("salary", salary);
-    //     } else {
-    //         model.addAttribute("hasSalary", false);
-    //     }
-    //     return "salary";
+    // public String showSalaryForm(@RequestParam(value = "userId", required =
+    // false) Long userIdParam, HttpSession session, Model model) {
+    // Long userId = (Long) session.getAttribute("userId");
+    // if (userId == null && userIdParam != null) {
+    // session.setAttribute("userId", userIdParam);
+    // userId = userIdParam;
+    // }
+    // if (userId == null) return "redirect:http://localhost:8082/login";
+    // double salary = expenseService.getSalary(userId);
+    // if (salary > 0) {
+    // model.addAttribute("hasSalary", true);
+    // model.addAttribute("salary", salary);
+    // } else {
+    // model.addAttribute("hasSalary", false);
+    // }
+    // return "salary";
     // }
 
     // @PostMapping("/salary")
     // public String setSalary(@RequestParam double salary, HttpSession session) {
-    //     Long userId = (Long) session.getAttribute("userId");
-    //     if (userId == null) return "redirect:http://localhost:8082/login";
-    //     expenseService.setSalary(userId, salary);
-    //     return "redirect:/expense";
+    // Long userId = (Long) session.getAttribute("userId");
+    // if (userId == null) return "redirect:http://localhost:8082/login";
+    // expenseService.setSalary(userId, salary);
+    // return "redirect:/expense";
     // }
 
     // @PostMapping("/salary/continue")
     // public String continueWithSalary(HttpSession session) {
-    //     Long userId = (Long) session.getAttribute("userId");
-    //     if (userId == null) return "redirect:http://localhost:8082/login";
-    //     return "redirect:/expense";
+    // Long userId = (Long) session.getAttribute("userId");
+    // if (userId == null) return "redirect:http://localhost:8082/login";
+    // return "redirect:/expense";
     // }
 
     // --- NEW MINIMAL SALARY FLOW ---
     @GetMapping("/salary")
-    public String showSalaryForm(@RequestParam(value = "userId", required = false) Long userIdParam, HttpSession session) {
+    public String showSalaryForm(@RequestParam(value = "userId", required = false) Long userIdParam,
+            HttpSession session) {
         if (userIdParam != null) {
             session.setAttribute("userId", userIdParam);
         }
@@ -62,30 +64,78 @@ public class ExpenseController {
     @PostMapping("/salary")
     public String setSalary(@RequestParam double salary, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:http://localhost:8082/login";
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
         expenseService.setSalary(userId, salary);
         return "redirect:/expense";
     }
 
+    // Hardcoded limits for simplicity. In a real app, these would be in a DB.
+    private final java.util.Map<String, Double> categoryLimits = new java.util.HashMap<>() {
+        {
+            put("Food", 5000.0);
+            put("Travel", 3000.0);
+            put("Entertainment", 2000.0);
+            put("Utilities", 4000.0);
+            put("shopping", 5000.0);
+            put("style", 2000.0);
+            // Default for others
+        }
+    };
+
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:http://localhost:8082/login";
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
+
         double salary = expenseService.getSalary(userId);
         double spent = expenseService.getTotalSpent(userId);
+        List<Expense> expenses = expenseService.getAllExpenses(userId);
+
+        // Calculate per-category spending
+        java.util.Map<String, Double> categorySpending = expenses.stream()
+                .collect(java.util.stream.Collectors.groupingBy(Expense::getCategory,
+                        java.util.stream.Collectors.summingDouble(Expense::getAmount)));
+
+        // Prepare progress data
+        List<java.util.Map<String, Object>> progressList = new java.util.ArrayList<>();
+        java.util.Set<String> allCategories = new java.util.HashSet<>(categoryLimits.keySet());
+        allCategories.addAll(categorySpending.keySet());
+
+        for (String category : allCategories) {
+            double current = categorySpending.getOrDefault(category, 0.0);
+            double limit = categoryLimits.getOrDefault(category, 2000.0); // Default limit 2000
+            double percentage = (current / limit) * 100;
+
+            java.util.Map<String, Object> map = new java.util.HashMap<>();
+            map.put("name", category);
+            map.put("current", current);
+            map.put("limit", limit);
+            map.put("percentage", Math.min(percentage, 100)); // Cap at 100 for bar width
+            map.put("isOverBudget", current > limit);
+            map.put("color", percentage > 90 ? "bg-danger" : (percentage > 50 ? "bg-warning" : "bg-info"));
+            progressList.add(map);
+        }
+
         model.addAttribute("salary", salary);
         model.addAttribute("remaining", salary - spent);
-        model.addAttribute("categories", expenseService.getAllExpenses(userId).stream().map(Expense::getCategory).distinct().toList());
+        model.addAttribute("categories", expenses.stream().map(Expense::getCategory).distinct().toList());
+        model.addAttribute("progressList", progressList);
+
         return "dashboard";
     }
 
     @GetMapping("/expense")
     public String showExpenseForm(HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:http://localhost:8082/login";
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
         model.addAttribute("expense", new Expense());
-        model.addAttribute("categories", expenseService.getAllExpenses(userId).stream().map(Expense::getCategory).distinct().toList());
-        model.addAttribute("expensesByCategory", expenseService.getAllExpenses(userId).stream().collect(java.util.stream.Collectors.groupingBy(Expense::getCategory)));
+        model.addAttribute("categories",
+                expenseService.getAllExpenses(userId).stream().map(Expense::getCategory).distinct().toList());
+        model.addAttribute("expensesByCategory", expenseService.getAllExpenses(userId).stream()
+                .collect(java.util.stream.Collectors.groupingBy(Expense::getCategory)));
         model.addAttribute("remaining", expenseService.getSalary(userId) - expenseService.getTotalSpent(userId));
         return "expense";
     }
@@ -93,12 +143,15 @@ public class ExpenseController {
     @PostMapping("/expense")
     public String addExpense(@ModelAttribute Expense expense, HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:http://localhost:8082/login";
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
         expense.setUserId(userId);
         expenseService.addExpense(expense);
         model.addAttribute("expense", new Expense());
-        model.addAttribute("categories", expenseService.getAllExpenses(userId).stream().map(Expense::getCategory).distinct().toList());
-        model.addAttribute("expensesByCategory", expenseService.getAllExpenses(userId).stream().collect(java.util.stream.Collectors.groupingBy(Expense::getCategory)));
+        model.addAttribute("categories",
+                expenseService.getAllExpenses(userId).stream().map(Expense::getCategory).distinct().toList());
+        model.addAttribute("expensesByCategory", expenseService.getAllExpenses(userId).stream()
+                .collect(java.util.stream.Collectors.groupingBy(Expense::getCategory)));
         model.addAttribute("remaining", expenseService.getSalary(userId) - expenseService.getTotalSpent(userId));
         return "expense";
     }
@@ -106,7 +159,8 @@ public class ExpenseController {
     @GetMapping("/category/{category}")
     public String showCategory(@PathVariable String category, HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:http://localhost:8082/login";
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
         List<Expense> expenses = expenseService.getExpensesByCategory(userId, category);
         double totalSpent = expenses.stream().mapToDouble(Expense::getAmount).sum();
         model.addAttribute("category", category);
@@ -129,9 +183,26 @@ public class ExpenseController {
     }
 
     @GetMapping("/expense/delete/{id}")
-    public String deleteExpense(@PathVariable Long id) {
-        String category = expenseService.getExpenseById(id).getCategory();
+    public String deleteExpense(@PathVariable Long id, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null)
+            return "redirect:http://localhost:8082/login";
+
+        Expense expense = expenseService.getExpenseById(id);
+        if (expense == null || !expense.getUserId().equals(userId)) {
+            // Security check failed or expense not found
+            return "redirect:/dashboard";
+        }
+
+        String category = expense.getCategory();
         expenseService.deleteExpense(id);
+
+        // Check if category is now empty
+        List<Expense> remaining = expenseService.getExpensesByCategory(userId, category);
+        if (remaining.isEmpty()) {
+            return "redirect:/dashboard";
+        }
+
         return "redirect:/category/" + category;
     }
 

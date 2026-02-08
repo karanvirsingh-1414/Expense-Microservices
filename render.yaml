@@ -1,0 +1,58 @@
+services:
+  # 1. Eureka Discovery Server
+  - type: web
+    name: eureka-server
+    runtime: docker
+    repo: https://github.com/karanvirsingh-1414/Expense-Microservices
+    branch: master
+    rootDir: eureka-server
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: JAVA_OPTS
+        value: -Xmx256m -Xms256m
+
+  # 2. API Gateway
+  - type: web
+    name: api-gateway
+    runtime: docker
+    repo: https://github.com/karanvirsingh-1414/Expense-Microservices
+    branch: master
+    rootDir: api-gateway
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-lm2p.onrender.com/eureka/
+      - key: JAVA_OPTS
+        value: -Xmx256m -Xms256m
+
+  # 3. User Service
+  - type: web
+    name: user-service
+    runtime: docker
+    repo: https://github.com/karanvirsingh-1414/Expense-Microservices
+    branch: master
+    rootDir: user-service
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-lm2p.onrender.com/eureka/
+      - key: JAVA_OPTS
+        value: -Xmx256m -Xms256m
+
+  # 4. Expense Service
+  - type: web
+    name: expense-service
+    runtime: docker
+    repo: https://github.com/karanvirsingh-1414/Expense-Microservices
+    branch: master
+    rootDir: expense-service
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-lm2p.onrender.com/eureka/
+      - key: JAVA_OPTS
+        value: -Xmx256m -Xms256m
